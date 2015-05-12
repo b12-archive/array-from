@@ -1,7 +1,9 @@
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 // Reference: https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array.from
-if (!Array.from) {
-  Array.from = (function () {
+module.exports = (
+  typeof Array.from === 'function' ?
+  Array.from :
+  (function () {
     var toStr = Object.prototype.toString;
     var isCallable = function (fn) {
       return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
@@ -74,5 +76,5 @@ if (!Array.from) {
       // 20. Return A.
       return A;
     };
-  }());
-}
+  })()
+);
