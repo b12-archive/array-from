@@ -4,7 +4,12 @@ var plus = require('1-liners/plus');
 var arrayFrom = require('./index');
 
 test('Works as expected', function(is) {
-  var mock = {0: 'a', 1: 'b', 2: 'c', length: 3};
+  var mock = {
+    0: 'a',
+    1: 'b',
+    2: 'c',
+    length: 3,
+  };
 
   is.deepEqual(
     arrayFrom(mock),
@@ -15,6 +20,31 @@ test('Works as expected', function(is) {
   is.ok(
     arrayFrom(mock) instanceof Array,
     '– returning an array'
+  );
+
+  is.deepEqual(
+    arrayFrom({
+      0: 'a',
+      1: 'b',
+      2: 'c',
+      'a': 'left out',
+      '-1': 'left out',
+      length: 3,
+    }),
+    ['a', 'b', 'c'],
+    '– ignoring illegal indices'
+  );
+
+  is.deepEqual(
+    arrayFrom({}),
+    [],
+    'with an empty object'
+  );
+
+  is.deepEqual(
+    arrayFrom([]),
+    [],
+    'with an empty array'
   );
 
   is.deepEqual(
