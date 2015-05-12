@@ -10,9 +10,6 @@
  [![Code style: airbnb
 ](https://img.shields.io/badge/code%20style-airbnb-blue.svg?style=flat-square)
 ](https://github.com/airbnb/javascript)
- [![Stability: experimental
-](https://img.shields.io/badge/stability-experimental-red.svg?style=flat-square)
-](https://nodejs.org/api/documentation.html#documentation_stability_index)
 
 
 
@@ -51,11 +48,9 @@ Recommended:
 var arrayFrom = require('array-from');
   // You’ll get the native `Array.from` if it’s available.
 
-function () {
-  console.log(arrayFrom(arguments)
-    .map(require('1-liners/increment'))
-  );
-}(1, 2, 3);
+function () {console.log(
+  arrayFrom(arguments).map(require('1-liners/increment'))
+);}(1, 2, 3);
 //» [2, 3, 4]
 ```
 
@@ -65,11 +60,9 @@ function () {
 if (!Array.from) Array.from = require('array-from');
   // This will affect all loaded modules.
 
-function () {
-  console.log(Array.from(arguments)
-    .map(require('1-liners/increment'))
-  );
-}(1, 2, 3);
+function () {console.log(
+  Array.from(arguments).map(require('1-liners/increment'))
+);}(1, 2, 3);
 //» [2, 3, 4]
 ```
 
