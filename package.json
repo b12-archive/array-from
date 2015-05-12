@@ -11,6 +11,7 @@
   , "develop": "nodangel --ignore node_modules --ignore coverage --exec 'npm run --silent test:lite'"
   , "test": "jshint . && npm run test:lite"
   , "test:lite": "node test.js | tap-spec"
+  , "view-coverage": "echo 'Generating coverage reports...'; npm run coverage >/dev/null && echo '...done.' && xdg-open ./coverage/lcov-report/index.html >/dev/null"
   }
 
 , "devDependencies":
