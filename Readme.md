@@ -17,15 +17,20 @@
 array-from
 ==========
 
-**A ponyfill for the ES 2015 (ES6) [`Array.from()`][].**
+**A ponyfill for the ES 2015 [`Array.from()`][].**
 
-**Ponyfill: A polyfill that doesn't overwrite the native method.**
+*** Ponyfill**: A polyfill that doesn't overwrite the native method.
 
-Credits for the implementation go to the amazing guys of the MDN. [See the original here][].
+*** ES 2015**: The new name for ES6 that [nobody expected][].
+
+Modelled after [revision 22][] of the ES 2015 spec.
+
+Credits for the implementation go to the amazing folks of the MDN. [See the original here][].
 
 [`Array.from()`]:         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from                  "Array.from()"
 [See the original here]:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from$revision/727125  "Array.from()"
-
+[revision 22]:            http://wiki.ecmascript.org/lib/exe/fetch.php?id=harmony%3Aspecification_drafts&cache=cache&media=harmony:working_draft_ecma-262_edition_6_01-20-14-nomarkup.pdf
+[nobody expected]:        http://webreflection.blogspot.de/2015/01/javascript-and-living-ecmascript.html                               "JavaScript and the living ECMAScript Standard"
 
 
 
