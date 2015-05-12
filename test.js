@@ -47,3 +47,23 @@ test('Works as expected', function(is) {
 
   is.end();
 });
+
+test('Throws when things go very wrong.', function(is) {
+  is.throws(
+    function() {
+      arrayFrom();
+    },
+    TypeError,
+    'when the given object is invalid'
+  );
+
+  is.throws(
+    function() {
+      arrayFrom({length: 0}, /invalid/);
+    },
+    TypeError,
+    'when `mapFn` is invalid'
+  );
+
+  is.end();
+});
