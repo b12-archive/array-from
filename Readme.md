@@ -58,7 +58,7 @@ function () {console.log(
 //» [2, 3, 4]
 ```
 
-[Not recommended][], but possible:
+You can also use it as a classical polyfill. It’s [not recommended][], but sometimes practical:
 
 ```js
 if (!Array.from) Array.from = require('array-from');
@@ -70,7 +70,7 @@ function () {console.log(
 //» [2, 3, 4]
 ```
 
-[Not recommended]:  https://github.com/sindresorhus/object-assign/issues/10#issuecomment-65065859  "Optionally shim native method?"
+[not recommended]:  https://github.com/sindresorhus/object-assign/issues/10#issuecomment-65065859  "Optionally shim native method?"
 
 
 
