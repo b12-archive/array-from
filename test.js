@@ -98,7 +98,21 @@ test('Works as expected', function(is) {
     ['a+', 'b+', 'c+'],
     'when dealing with iterables, `mapFn`, and `thisArg`'
   );
-  
+
+  var geckoIterator = {
+    "@@iterator" : function(){
+      return {
+        next: function(){ return { done: true } }
+      }
+    }
+  }
+
+  is.deepEqual(
+    arrayFrom(geckoIterator),
+    [],
+    'when using Gecko-based "@@iterator" property.'
+  );
+
   var Transferable = function(){}
   Transferable.from = arrayFrom;
 
@@ -141,22 +155,28 @@ test('Throws when things go very wrong.', function(is) {
       arrayFrom(invalidIterator);
     },
     TypeError,
-    'when an iterable has an invalid iterator (not callable)'
+    'when an iterable has an invalid iterator property'
   );
 
+  var noIterator = {};
+  noIterator[Symbol.iterator] = function(){};
+
+  is.throws(
+    function() {
+      arrayFrom(noIterator);
+    },
+    TypeError,
+    '- no iterator returned');
+
   var noNext = {};
-  noNext[Symbol.iterator] = function(){
-    return {
-      // has no next()
-    };
-  };
+  noNext[Symbol.iterator] = function(){return {}};
 
   is.throws(
     function() {
       arrayFrom(noNext);
     },
     TypeError,
-    'when an iterator returns an object with no `next` function'
+    '- no `next` function'
   );
 
   is.end();

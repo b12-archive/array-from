@@ -8,12 +8,14 @@ module.exports = (function() {
     return value >>> 0;
   };
   var iteratorProp = function(value) {
-    // Support "@@iterator" placeholder, Gecko 27 to Gecko 35 
-    if ('@@iterator' in value) {
-      return '@@iterator';
-    }
-    else if ((typeof Symbol !== 'undefined') && ('iterator' in Symbol)) {
-      return Symbol.iterator;
+    if(value != null) {
+      // Support "@@iterator" placeholder, Gecko 27 to Gecko 35 
+      if ('@@iterator' in value) {
+        return '@@iterator';
+      }
+      else if ((typeof Symbol !== 'undefined') && ('iterator' in Symbol)) {
+        return Symbol.iterator;
+      }
     }
   };
   var getMethod = function(O, P) {
@@ -23,7 +25,9 @@ module.exports = (function() {
       var func = O[P];
       // ReturnIfAbrupt(func).
       // If func is either undefined or null, return undefined.
-      if(func == null) return void 0;
+      if(func == null) {
+        return void 0;
+      }
       // If IsCallable(func) is false, throw a TypeError exception.
       if (!isCallable(func)) {
         throw new TypeError(func + " is not a function");
@@ -34,32 +38,13 @@ module.exports = (function() {
   var iteratorStep = function(iterator) {
     // Let result be IteratorNext(iterator).
     // ReturnIfAbrupt(result).
-    var result = iteratorNext(iterator);
+    var result = iterator.next()
     // Let done be IteratorComplete(result).
     // ReturnIfAbrupt(done).
     var done = Boolean(result.done);
     // If done is true, return false.
     if(done) {
       return false;
-    }
-    // Return result.
-    return result;
-  };
-  var iteratorNext = function(iterator, value) {
-    var result;
-    // If value was not passed, then
-    if(arguments.length === 1) {
-    // Let result be Invoke(iterator, "next", « »).
-      result = iterator.next();
-    // Else,
-    } else {
-    // Let result be Invoke(iterator, "next", «value»).
-      result = iterator.next(value);
-    }
-    // ReturnIfAbrupt(result).
-    // If Type(result) is not Object, throw a TypeError exception.
-    if(typeof result !== 'object') {
-      throw new TypeError(result + " is not an object");
     }
     // Return result.
     return result;
@@ -155,8 +140,8 @@ module.exports = (function() {
         k++;
       }
       // 7. Assert: items is not an Iterable so assume it is an array-like object.
-    }
-    else {
+    } else {
+
       // 8. Let arrayLike be ToObject(items).
       var arrayLike = Object(items);
 
@@ -188,7 +173,7 @@ module.exports = (function() {
         else {
           A[k] = kValue;
         }
-        k += 1;
+        k++;
       }
       // 17. Let setStatus be Set(A, "length", len, true).
       // 18. ReturnIfAbrupt(setStatus).
