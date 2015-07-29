@@ -166,7 +166,7 @@ test('Throws when things go very wrong.', function(is) {
       arrayFrom(noIterator);
     },
     TypeError,
-    '- no iterator returned');
+    '– no iterator returned');
 
   var noNext = {};
   noNext[Symbol.iterator] = function(){return {}};
@@ -176,7 +176,7 @@ test('Throws when things go very wrong.', function(is) {
       arrayFrom(noNext);
     },
     TypeError,
-    '- no `next` function'
+    '– no `next` function'
   );
 
   is.end();
