@@ -1,7 +1,10 @@
 var test = require('tape-catch');
 var plus = require('1-liners/plus');
 
-var arrayFrom = require('./index');
+require('core-js/es6/symbol');// Polyfill Symbol.iterator into global namespace
+var set = require('core-js/library/fn/set');
+
+var arrayFrom = require('./arrayFrom');
 
 test('Works as expected', function(is) {
   var mock = {
@@ -74,6 +77,40 @@ test('Works as expected', function(is) {
     ['a+', 'b+', 'c+'],
     'when dealing with `mapFn` and `thisArg`'
   );
+  
+  is.deepEqual(
+    arrayFrom(new set(['a', 'b', 'c'])),
+    ['a', 'b', 'c'],
+    'when using iterable objects'
+  );
+
+  is.deepEqual(
+    arrayFrom(new set(['a', 'b', 'c']).keys(), plus),
+    ['a0', 'b1', 'c2'],
+    'when dealing with iterables and `mapFn`'
+  );
+  
+  is.deepEqual(
+    arrayFrom(new set(['a', 'b', 'c']).values(),
+      function(item) {return (item + this.suffix);},
+      context
+    ),
+    ['a+', 'b+', 'c+'],
+    'when dealing with iterables, `mapFn`, and `thisArg`'
+  );
+  
+  var Transferable = function(){}
+  Transferable.from = arrayFrom;
+
+  is.ok(
+    Transferable.from([1]) instanceof Transferable,
+    'can be transfered to other constructor functions'
+  );
+
+  is.equal(
+    Transferable.from(new set(['a', 'b', 'c'])).length, 3,
+    'can be transfered to other constructor functions (iterable)'
+  );
 
   is.end();
 });
@@ -93,6 +130,33 @@ test('Throws when things go very wrong.', function(is) {
     },
     TypeError,
     'when `mapFn` is invalid'
+  );
+
+  
+  var invalidIterator = {};
+  invalidIterator[Symbol.iterator] = {};
+
+  is.throws(
+    function() {
+      arrayFrom(invalidIterator);
+    },
+    TypeError,
+    'when an iterable has an invalid iterator (not callable)'
+  );
+
+  var noNext = {};
+  noNext[Symbol.iterator] = function(){
+    return {
+      // has no next()
+    };
+  };
+
+  is.throws(
+    function() {
+      arrayFrom(noNext);
+    },
+    TypeError,
+    'when an iterator returns an object with no `next` function'
   );
 
   is.end();
