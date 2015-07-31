@@ -4,17 +4,25 @@ module.exports = (function() {
   var isCallable = function(fn) {
     return typeof fn === 'function';
   };
-  var toLength = function(value) {
-    return value >>> 0;
+  var toInteger = function (value) {
+    var number = Number(value);
+    if (isNaN(number)) { return 0; }
+    if (number === 0 || !isFinite(number)) { return number; }
+    return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
+  };
+  var maxSafeInteger = Math.pow(2, 53) - 1;
+  var toLength = function (value) {
+    var len = toInteger(value);
+    return Math.min(Math.max(len, 0), maxSafeInteger);
   };
   var iteratorProp = function(value) {
     if(value != null) {
-      // Support "@@iterator" placeholder, Gecko 27 to Gecko 35 
-      if ('@@iterator' in value) {
-        return '@@iterator';
-      }
-      else if ((typeof Symbol !== 'undefined') && ('iterator' in Symbol)) {
+      if ((typeof Symbol !== 'undefined') && ('iterator' in Symbol) && (Symbol.iterator in value)) {
         return Symbol.iterator;
+      }
+      // Support "@@iterator" placeholder, Gecko 27 to Gecko 35 
+      else if ('@@iterator' in value) {
+        return '@@iterator';
       }
     }
   };
