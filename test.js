@@ -135,7 +135,7 @@ test('Works for iterable objects', function(is) {
     "value" : 1,
     "@@iterator" : function(){
       var hasValue = true;
-      value = this.value;
+      var value = this.value;
       return {
         next: function(){ 
           if(hasValue) {
