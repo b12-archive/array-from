@@ -4,7 +4,7 @@ var isNative = require('lodash.isnative');
 // Shim Symbol.iterator if it's not available
 require('core-js/es6/symbol');
 
-var arrayFrom = require('./pollyfill');
+var arrayFrom = require('./polyfill');
 
 test('Works as expected', function(is) {
   var mock = {
@@ -77,7 +77,7 @@ test('Works as expected', function(is) {
     ['a+', 'b+', 'c+'],
     'when dealing with `mapFn` and `thisArg`'
   );
-  
+
   var Transferable = function(){}
   Transferable.from = arrayFrom;
 
@@ -96,7 +96,7 @@ test('Works for iterable objects', function(is) {
   is.deepEqual(
     arrayFrom(new set(['a', 'b', 'c'])),
     ['a', 'b', 'c'],
-    'with Set (pollyfill)'
+    'with Set (polyfill)'
   );
 
   is.deepEqual(
@@ -137,7 +137,7 @@ test('Works for iterable objects', function(is) {
       var hasValue = true;
       var value = this.value;
       return {
-        next: function(){ 
+        next: function(){
           if(hasValue) {
             hasValue = false;
             return { value: value, done: false }
