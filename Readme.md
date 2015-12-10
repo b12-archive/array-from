@@ -22,13 +22,11 @@ array-from
 **&ast; Ponyfill**: A polyfill that doesn't overwrite the native method.  
 **&ast; ES 2015**: The new name for ES6 that [nobody expected][].
 
-Modeled after [revision 22][] of the ES 2015 spec. Credits for the implementation go to the amazing folks of the MDN. [See the original here][].
+Modeled after the final ES 2015 spec. Credits for the implementation go to the amazing folks of the MDN and the amazing guy [@barberboy](https://github.com/barberboy).
 
 &nbsp;
 
 [`Array.from()`]:         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from                  "Array.from()"
-[See the original here]:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from$revision/727125  "Array.from()"
-[revision 22]:            http://wiki.ecmascript.org/lib/exe/fetch.php?id=harmony%3Aspecification_drafts&cache=cache&media=harmony:working_draft_ecma-262_edition_6_01-20-14-nomarkup.pdf
 [nobody expected]:        http://webreflection.blogspot.de/2015/01/javascript-and-living-ecmascript.html                               "JavaScript and the living ECMAScript Standard"
 
 
