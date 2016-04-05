@@ -222,3 +222,37 @@ test('Throws when things go very wrong.', function(is) {
 
   is.end();
 });
+
+test('if specify not object, it should operate in nodejs v0(fix #8)', function(is) {
+  is.deepEqual(
+    arrayFrom('a'),
+    ['a'],
+    'string'
+  );
+
+  is.deepEqual(
+    arrayFrom('👺'),
+    ['👺'],
+    'string(emoji)'
+  );
+
+  is.deepEqual(
+    arrayFrom(true),
+    [],
+    'boolean'
+  );
+
+  is.deepEqual(
+    arrayFrom(1),
+    [],
+    'number'
+  );
+
+  is.deepEqual(
+    arrayFrom(Symbol()),
+    [],
+    'symbol'
+  );
+  
+  is.end();
+})

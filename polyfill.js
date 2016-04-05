@@ -17,17 +17,19 @@ module.exports = (function() {
   };
   var iteratorProp = function(value) {
     if(value != null) {
-      if ((typeof Symbol !== 'undefined') && ('iterator' in Symbol) && (Symbol.iterator in value)) {
+      if(['string','number','boolean','symbol'].indexOf(typeof value) > -1){
+        return Symbol.iterator;
+      } else if ((typeof Symbol !== 'undefined') && ('iterator' in Symbol) && (Symbol.iterator in value)) {
         return Symbol.iterator;
       }
-      // Support "@@iterator" placeholder, Gecko 27 to Gecko 35 
+      // Support "@@iterator" placeholder, Gecko 27 to Gecko 35
       else if ('@@iterator' in value) {
         return '@@iterator';
       }
     }
   };
   var getMethod = function(O, P) {
-    // Assert: IsPropertyKey(P) is true. 
+    // Assert: IsPropertyKey(P) is true.
     if (O != null && P != null) {
       // Let func be GetV(O, P).
       var func = O[P];
