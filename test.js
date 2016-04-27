@@ -223,7 +223,7 @@ test('Throws when things go very wrong.', function(is) {
   is.end();
 });
 
-test('if specify not object, it should operate in nodejs v0(fix #8)', function(is) {
+test('Works for non-objects (fix #8)', function(is) {
   is.deepEqual(
     arrayFrom('a'),
     ['a'],
@@ -233,6 +233,18 @@ test('if specify not object, it should operate in nodejs v0(fix #8)', function(i
   is.deepEqual(
     arrayFrom('👺'),
     ['👺'],
+    'string(emoji)'
+  );
+
+  is.deepEqual(
+    arrayFrom('abc'),
+    ['a', 'b', 'c'],
+    'string'
+  );
+
+  is.deepEqual(
+    arrayFrom('👺🍣🍻'),
+    ['👺', '🍣', '🍻'],
     'string(emoji)'
   );
 
@@ -253,6 +265,6 @@ test('if specify not object, it should operate in nodejs v0(fix #8)', function(i
     [],
     'symbol'
   );
-  
+
   is.end();
 })
