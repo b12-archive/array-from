@@ -1,6 +1,6 @@
 {
   "name": "array-from",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "A ponyfill for the ES 2015 (ES6) `Array.from()`.",
   "dependencies": {},
   "scripts": {
