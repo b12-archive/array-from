@@ -78,7 +78,7 @@ test('Works as expected', function(is) {
     'when dealing with `mapFn` and `thisArg`'
   );
 
-  var Transferable = function(){}
+  var Transferable = function(){};
   Transferable.from = arrayFrom;
 
   is.ok(
@@ -91,23 +91,23 @@ test('Works as expected', function(is) {
 
 test('Works for iterable objects', function(is) {
 
-  var set = require('core-js/library/fn/set');
+  var SetPolyfill = require('core-js/library/fn/set');
 
   is.deepEqual(
-    arrayFrom(new set(['a', 'b', 'c'])),
+    arrayFrom(new SetPolyfill(['a', 'b', 'c'])),
     ['a', 'b', 'c'],
     'with Set (polyfill)'
   );
 
   is.deepEqual(
-    arrayFrom(new set(['a', 'b', 'c']).values(), plus),
+    arrayFrom(new SetPolyfill(['a', 'b', 'c']).values(), plus),
     ['a0', 'b1', 'c2'],
     'when dealing with `mapFn`'
   );
 
   var context = {suffix: '+'};
   is.deepEqual(
-    arrayFrom(new set(['a', 'b', 'c']).keys(),
+    arrayFrom(new SetPolyfill(['a', 'b', 'c']).keys(),
       function(item) {return (item + this.suffix);},
       context
     ),
@@ -125,27 +125,32 @@ test('Works for iterable objects', function(is) {
 
   if(typeof Map !== 'undefined' && isNative(Map)) {
     is.deepEqual(
-      arrayFrom(new Map().set('key1', 'value1').set('key2', 'value2').set('key3', 'value3').keys()),
+      arrayFrom(new Map()
+        .set('key1', 'value1')
+        .set('key2', 'value2')
+        .set('key3', 'value3')
+        .keys()
+      ),
       ['key1', 'key2', 'key3'],
       'with native Map'
     );
   }
 
   var geckoIterator = {
-    "value" : 1,
-    "@@iterator" : function(){
+    value : 1,
+    '@@iterator' : function(){
       var hasValue = true;
       var value = this.value;
       return {
         next: function(){
           if(hasValue) {
             hasValue = false;
-            return { value: value, done: false }
+            return { value: value, done: false };
           } else {
-            return { done: true }
+            return { done: true };
           }
         }
-      }
+      };
     }
   };
 
@@ -155,16 +160,16 @@ test('Works for iterable objects', function(is) {
     'when using Gecko-based "@@iterator" property.'
   );
 
-  geckoIterator["@@iterator"] = null;
+  geckoIterator['@@iterator'] = null;
   is.deepEqual(
     arrayFrom(geckoIterator),
     [],
     'null iterator is like no iterator');
 
-  var Transferable = function(){}
+  var Transferable = function(){};
   Transferable.from = arrayFrom;
 
-  is.ok(Transferable.from(new set(['a'])) instanceof Transferable,
+  is.ok(Transferable.from(new SetPolyfill(['a'])) instanceof Transferable,
     'can be transferred to other constructor functions (iterable)'
   );
 
@@ -210,7 +215,7 @@ test('Throws when things go very wrong.', function(is) {
     '– no iterator returned');
 
   var noNext = {};
-  noNext[Symbol.iterator] = function(){return {}};
+  noNext[Symbol.iterator] = function(){ return {}; };
 
   is.throws(
     function() {
@@ -223,7 +228,7 @@ test('Throws when things go very wrong.', function(is) {
   is.end();
 });
 
-test('Works for non-objects (fix #8)', function(is) {
+test('Works for non-objects', function(is) {
   is.deepEqual(
     arrayFrom('a'),
     ['a'],
@@ -267,4 +272,4 @@ test('Works for non-objects (fix #8)', function(is) {
   );
 
   is.end();
-})
+});
