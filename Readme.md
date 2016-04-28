@@ -73,6 +73,14 @@ function () {console.log(
 
 
 
+Support note
+------------
+
+We support the _current_ and _active LTS_ release of Node.js. More info in [nodejs/LTS](https://github.com/nodejs/LTS#lts_schedule).
+
+
+
+
 License
 -------
 
