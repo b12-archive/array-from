@@ -19,7 +19,11 @@ module.exports = (function() {
     if(value != null) {
       if(['string','number','boolean','symbol'].indexOf(typeof value) > -1){
         return Symbol.iterator;
-      } else if ((typeof Symbol !== 'undefined') && ('iterator' in Symbol) && (Symbol.iterator in value)) {
+      } else if (
+        (typeof Symbol !== 'undefined') &&
+        ('iterator' in Symbol) &&
+        (Symbol.iterator in value)
+      ) {
         return Symbol.iterator;
       }
       // Support "@@iterator" placeholder, Gecko 27 to Gecko 35
@@ -40,7 +44,7 @@ module.exports = (function() {
       }
       // If IsCallable(func) is false, throw a TypeError exception.
       if (!isCallable(func)) {
-        throw new TypeError(func + " is not a function");
+        throw new TypeError(func + ' is not a function');
       }
       return func;
     }
@@ -48,7 +52,7 @@ module.exports = (function() {
   var iteratorStep = function(iterator) {
     // Let result be IteratorNext(iterator).
     // ReturnIfAbrupt(result).
-    var result = iterator.next()
+    var result = iterator.next();
     // Let done be IteratorComplete(result).
     // ReturnIfAbrupt(done).
     var done = Boolean(result.done);
@@ -62,7 +66,7 @@ module.exports = (function() {
 
   // The length property of the from method is 1.
   return function from(items /*, mapFn, thisArg */ ) {
-    "use strict";
+    'use strict';
 
     // 1. Let C be the this value.
     var C = this;
@@ -75,10 +79,13 @@ module.exports = (function() {
       // 3. else
       //   a. If IsCallable(mapfn) is false, throw a TypeError exception.
       if (!isCallable(mapFn)) {
-        throw new TypeError('Array.from: when provided, the second argument must be a function');
+        throw new TypeError(
+          'Array.from: when provided, the second argument must be a function'
+        );
       }
 
-      //   b. If thisArg was supplied, let T be thisArg; else let T be undefined.
+      //   b. If thisArg was supplied, let T be thisArg; else let T
+      //      be undefined.
       if (arguments.length > 2) {
         T = arguments[2];
       }
@@ -94,9 +101,11 @@ module.exports = (function() {
     // 6. If usingIterator is not undefined, then
     if (usingIterator !== void 0) {
       // a. If IsConstructor(C) is true, then
-      //   i. Let A be the result of calling the [[Construct]] internal method of C with an empty argument list.
-      // ￼￼￼￼￼￼￼￼￼￼￼￼b. Else,
-      //   ￼￼i. Let A be the result of the abstract operation ArrayCreate with argument 0.
+      //   i. Let A be the result of calling the [[Construct]]
+      //      internal method of C with an empty argument list.
+      // b. Else,
+      //   i. Let A be the result of the abstract operation ArrayCreate
+      //      with argument 0.
       // c. ReturnIfAbrupt(A).
       A = isCallable(C) ? Object(new C()) : [];
 
@@ -105,7 +114,9 @@ module.exports = (function() {
 
       // e. ReturnIfAbrupt(iterator).
       if (iterator == null) {
-        throw new TypeError("Array.from requires an array-like or iterable object");
+        throw new TypeError(
+          'Array.from requires an array-like or iterable object'
+        );
       }
 
       // f. Let k be 0.
@@ -119,7 +130,7 @@ module.exports = (function() {
         // iii. ReturnIfAbrupt(next).
         next = iteratorStep(iterator);
 
-        // ￼iv. If next is false, then
+        // iv. If next is false, then
         if (!next) {
 
           // 1. Let setStatus be Set(A, "length", k, true).
@@ -135,11 +146,14 @@ module.exports = (function() {
 
         // vii. If mapping is true, then
         //   1. Let mappedValue be Call(mapfn, T, «nextValue, k»).
-        //   2. If mappedValue is an abrupt completion, return IteratorClose(iterator, mappedValue).
+        //   2. If mappedValue is an abrupt completion, return
+        //      IteratorClose(iterator, mappedValue).
         //   3. Let mappedValue be mappedValue.[[value]].
         // viii. Else, let mappedValue be nextValue.
-        // ix. Let defineStatus be the result of CreateDataPropertyOrThrow(A, Pk, mappedValue).
-        // x. [TODO] If defineStatus is an abrupt completion, return IteratorClose(iterator, defineStatus).
+        // ix.  Let defineStatus be the result of
+        //      CreateDataPropertyOrThrow(A, Pk, mappedValue).
+        // x. [TODO] If defineStatus is an abrupt completion, return
+        //    IteratorClose(iterator, defineStatus).
         if (mapFn) {
           A[k] = mapFn.call(T, nextValue, k);
         }
@@ -149,7 +163,8 @@ module.exports = (function() {
         // xi. Increase k by 1.
         k++;
       }
-      // 7. Assert: items is not an Iterable so assume it is an array-like object.
+      // 7. Assert: items is not an Iterable so assume it is
+      //    an array-like object.
     } else {
 
       // 8. Let arrayLike be ToObject(items).
@@ -157,7 +172,9 @@ module.exports = (function() {
 
       // 9. ReturnIfAbrupt(items).
       if (items == null) {
-        throw new TypeError("Array.from requires an array-like object - not null or undefined");
+        throw new TypeError(
+          'Array.from requires an array-like object - not null or undefined'
+        );
       }
 
       // 10. Let len be ToLength(Get(arrayLike, "length")).
@@ -191,5 +208,5 @@ module.exports = (function() {
       // 19. Return A.
     }
     return A;
-  }
+  };
 })();
