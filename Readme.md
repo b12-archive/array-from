@@ -19,7 +19,7 @@ array-from
 
 **A ponyfill for the ES 2015 [`Array.from()`][].**
 
-**&ast; Ponyfill**: A polyfill that doesn't overwrite the native method.  
+**&ast; [Ponyfill](https://ponyfill.com)**: A polyfill that doesn't overwrite the native method.  
 **&ast; ES 2015**: The new name for ES6 that [nobody expected][].
 
 Modeled after the final ES 2015 spec. Credits for the implementation go to the amazing folks of the MDN and [our awesome contributors](https://github.com/studio-b12/array-from/graphs/contributors).
