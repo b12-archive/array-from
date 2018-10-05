@@ -24,9 +24,9 @@
     "tape-catch": "1.0.4"
   },
   "files": [
-    "/*.js",
-    "/Readme.md",
-    "/License.md"
+    "*.js",
+    "Readme.md",
+    "License.md"
   ],
   "license": "MIT",
   "keywords": [
