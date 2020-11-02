@@ -2,8 +2,7 @@ branches:
   only:
     - master
 
-language:
-  node_js
+language: node_js
  arch:
   - amd64
   - ppc64le
