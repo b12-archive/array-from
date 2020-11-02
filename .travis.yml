@@ -4,15 +4,12 @@ branches:
 
 language:
   node_js
-  arch: 
+ arch:
   - amd64
   - ppc64le
 node_js:
-  - '12'
-  - '10'
-  - '8'
-  - '5'
-  - '6'
-
+  - "8"
+  - "10"
+  - "12"
 after_script:
   npm run coveralls
