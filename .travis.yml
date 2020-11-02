@@ -1,14 +1,11 @@
-branches:
-  only:
-    - master
-
-language:
-  node_js
+language: node_js
+arch:
+  - amd64
+  - ppc64le
 node_js:
-  - '0.12'
-  - '4.2'
-  - '5'
-  - '6'
+  - "8"
+  - "10"
+  - "12"
 
 after_script:
   npm run coveralls
